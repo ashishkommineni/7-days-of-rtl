@@ -3,9 +3,11 @@
 ## Recorded result
 
 - Date: 2026-09-28
-- Simulator: Verilator 5.49
+- Local simulator: Verilator 5.49
+- Hosted CI: Ubuntu 24.04 with Verilator 5.020
 - Compile mode: SystemVerilog, timing enabled, assertions enabled, `-Wall`
-- Result: seven passes, zero assertion failures, zero simulation fatals
+- Result: seven passes in both environments, zero assertion failures, zero simulation fatals
+- GitHub Actions evidence: RTL regression run #2, commit `9385d590`, completed successfully in 1m 2s
 
 | Day | Recorded PASS evidence |
 |---:|---|
@@ -22,6 +24,8 @@ Random-value totals are deterministic for the recorded simulator build but may c
 ## Defect found during verification
 
 The first Day-7 directed run reported that input zero did not win a supposed “first contention.” RTL inspection showed the arbiter history had already been updated by an earlier independent transfer. The fault was in test ordering, not arbitration. The reset-priority contention was moved before any transfer, and the next cycle explicitly proved rotation to input one. The repaired test then passed all directed and randomized traffic.
+
+The first hosted CI run also found a portability issue rather than a design failure. Verilator 5.49 accepted a temporal `cover property` sequence using `##1`, while Ubuntu's Verilator 5.020 reported that cover-sequence syntax as unsupported. The cover point was reduced to the portable `out_valid` event; the existing cycle-accurate scoreboard still proves the input-to-output latency. After that correction, the full hosted seven-project regression passed.
 
 Two earlier Day-1 design risks are guarded explicitly:
 

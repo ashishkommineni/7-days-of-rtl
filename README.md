@@ -1,5 +1,7 @@
 # 7 Days of RTL
 
+[![RTL regression](https://github.com/ashishkommineni/7-days-of-rtl/actions/workflows/rtl-regression.yml/badge.svg)](https://github.com/ashishkommineni/7-days-of-rtl/actions/workflows/rtl-regression.yml)
+
 Seven small RTL projects, each built around one design decision that regularly appears in real reviews and interviews. This is not a folder of isolated syntax examples. Every day starts with a behavior contract, implements synthesizable SystemVerilog, and proves the important cases with a self-checking testbench and assertions.
 
 The designs deliberately grow from arithmetic and priority logic into flow control, clock-domain crossing, pipelining, and packet movement. A reader can run the entire repository with one command and then study one project at a time.
