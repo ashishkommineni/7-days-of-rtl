@@ -1,0 +1,8 @@
+build/
+logs/
+xcelium.d/
+*.log
+*.vcd
+*.fst
+*.key
+*.history
